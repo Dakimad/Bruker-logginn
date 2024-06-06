@@ -100,6 +100,7 @@ def main():
     button_active = False
     text1 = ''
     text2 = ''
+    hidden_text2 = ''
     error_message = ''
     success_message = ''
     done = False
@@ -127,13 +128,14 @@ def main():
                 if register_button.collidepoint(event.pos):
                     button_active = True
                     # Validerer input og registrerer brukeren
-                    if text1 and text2 and is_valid_password(text2):
+                    if text1 and hidden_text2 and is_valid_password(hidden_text2):
                         if not check_duplicate_user(text1):
                             bruker_id = generate_unique_number()
-                            insert_user(text1, bruker_id, text2)
-                            print("Bruker lagt til i databasen med brukernavn:", text1, ", BrukerID:", bruker_id, "og Passord", text2)
+                            insert_user(text1, bruker_id, hidden_text2)
+                            print("Bruker lagt til i databasen med brukernavn:", text1, ", BrukerID:", bruker_id, "og Passord", hidden_text2)
                             success_message = f"Brukeren {text1} ble registrert med BrukerID: {bruker_id}"
                             text1 = ''
+                            hidden_text2 = ''
                             text2 = ''
                             active1 = False
                             active2 = False
@@ -160,9 +162,11 @@ def main():
                         active2 = False
                         color2 = color_inactive
                     elif event.key == pygame.K_BACKSPACE:
-                        text2 = text2[:-1]
+                        hidden_text2 = hidden_text2[:-1]
+                        text2 = '*' * len(hidden_text2)
                     else:
-                        text2 += event.unicode
+                        hidden_text2 += event.unicode
+                        text2 = '*' * len(hidden_text2)
 
         # Oppdaterer skjermen
         screen.fill((30, 30, 30))
