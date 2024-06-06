@@ -41,3 +41,15 @@ def check_duplicate(number):
         result = cursor.fetchone()
         return result['count'] > 0
 
+def insert_user(username, bruker_id, passord):
+    # Setter inn brukernavn, brukerID og passord i databasen
+    with connection.cursor() as cursor:
+        cursor.execute("INSERT INTO Brukere (Navn, BrukerID, Passord) VALUES (%s, %s, %s)", (username, bruker_id, passord))
+    connection.commit()
+
+def check_duplicate_user(username):
+    # Sjekker om brukernavnet allerede eksisterer i databasen
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT COUNT(*) AS count FROM Brukere WHERE Navn = %s", (username,))
+        result = cursor.fetchone()
+        return result['count'] > 0
