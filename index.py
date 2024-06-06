@@ -11,7 +11,7 @@ GREEN = (0, 255, 0)
 LIGHT_BLUE = (173, 216, 230)
 
 # Skjermstørrelse
-SCREEN_WIDTH = 800
+SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 600
 
 # Initialiserer Pygame
@@ -26,3 +26,11 @@ connection = pymysql.connect(host='172.20.128.73',
                              database='Users',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
+
+def generate_unique_number():
+    # Genererer et unikt 10-sifret tall
+    while True:
+        random_number = random.randint(1000000000, 9999999999)
+        if not check_duplicate(random_number):
+            return random_number
+
