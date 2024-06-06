@@ -34,3 +34,10 @@ def generate_unique_number():
         if not check_duplicate(random_number):
             return random_number
 
+def check_duplicate(number):
+    # Sjekker om tallet allerede eksisterer i databasen
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT COUNT(*) AS count FROM Brukere WHERE BrukerID = %s", (number,))
+        result = cursor.fetchone()
+        return result['count'] > 0
+
