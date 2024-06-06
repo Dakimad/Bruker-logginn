@@ -53,3 +53,35 @@ def check_duplicate_user(username):
         cursor.execute("SELECT COUNT(*) AS count FROM Brukere WHERE Navn = %s", (username,))
         result = cursor.fetchone()
         return result['count'] > 0
+
+def is_valid_password(password):
+    # Sjekker om passordet oppfyller kravene
+    if len(password) < 8:
+        return False
+    if not re.search(r"[A-Z]", password):
+        return False
+    if not re.search(r"[a-z]", password):
+        return False
+    if not re.search(r"[0-9]", password):
+        return False
+    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+        return False
+    return True
+
+def draw_text(text, font, color, surface, x, y):
+    # Tegner tekst på skjermen
+    text_obj = font.render(text, True, color)
+    text_rect = text_obj.get_rect()
+    text_rect.topleft = (x, y)
+    surface.blit(text_obj, text_rect)
+
+def draw_error_message(message, font, color, surface, x, y):
+    # Tegner feilmelding på skjermen
+    error_text = font.render(message, True, color)
+    surface.blit(error_text, (x, y))
+
+def draw_success_message(message, font, color, surface, x, y):
+    # Tegner suksessmelding på skjermen
+    success_text = font.render(message, True, color)
+    surface.blit(success_text, (x, y))
+
