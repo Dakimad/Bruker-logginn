@@ -48,5 +48,3 @@ Lag en hovedfunksjon som initialiserer variabler og håndterer hovedløkken:
 
 ### 14. Starte hovedprogrammet
 Til slutt, kall hovedfunksjonen hvis skriptet kjøres direkte.
-
-Denne prosessen gir en klar og strukturert måte å registrere brukere via et grafisk grensesnitt laget med Pygame og lagre informasjonen i en MySQL-database.
